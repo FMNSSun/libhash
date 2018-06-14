@@ -22,6 +22,7 @@ import "github.com/FMNSSun/libhash/bsdsum"
 import "github.com/FMNSSun/libhash/sysvsum"
 import "github.com/FMNSSun/libhash/fletcher"
 import "github.com/FMNSSun/libhash/xor8"
+import "github.com/FMNSSun/libhash/pearson"
 
 // Returns true if libhash supports this hash (by name).
 func IsHashSupported(hash string) bool {
@@ -176,6 +177,12 @@ func getHash(hash string) hash.Hash {
 
 	case "xor8", "xor/8", "xor-8":
 		return xor8.New()
+
+	case "pearson":
+		return pearson.New()
+
+	case "pearson/rfc3074", "pearson-rfc3074":
+		return pearson.NewRFC3074()
 
 	}
 
