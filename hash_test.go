@@ -27,6 +27,10 @@ func Test(t *testing.T) {
 			"abcde" : "c8f0",
 			"abcdefgh": "0627",
 		},
+
+		"md5" : map[string]string {
+			"Hello, world!" : "6cd3556deb0da54bca060b4c39479839",
+		},
 	}
 
 	run(t, table)
