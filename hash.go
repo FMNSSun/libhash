@@ -21,6 +21,7 @@ import "github.com/FMNSSun/libhash/sum"
 import "github.com/FMNSSun/libhash/bsdsum"
 import "github.com/FMNSSun/libhash/sysvsum"
 import "github.com/FMNSSun/libhash/fletcher"
+import "github.com/FMNSSun/libhash/xor8"
 
 func IsHashSupported(hash string) bool {
 	return getHash(hash) != nil
@@ -166,8 +167,12 @@ func getHash(hash string) hash.Hash {
 	case "sysv":
 		return sysvsum.New()
 
-	case "fletcher/16", "fletcher-16":
+	case "fletcher/16", "fletcher-16", "fletcher16":
 		return fletcher.New16()
+
+	case "xor8", "xor/8", "xor-8":
+		return xor8.New()
+
 	}
 
 	return nil
