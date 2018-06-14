@@ -8,7 +8,7 @@ type Sum32 struct {
 }
 
 func New32() hash.Hash {
-	return &Sum32{state:0}
+	return &Sum32{state: 0}
 }
 
 func (s *Sum32) Reset() {
@@ -24,14 +24,14 @@ func (s *Sum32) BlockSize() int {
 }
 
 func (s *Sum32) Sum(in []byte) []byte {
-	temp := []byte{0,0,0,0}
+	temp := []byte{0, 0, 0, 0}
 	binary.BigEndian.PutUint32(temp, s.state)
 	return append(in, temp...)
 }
 
 func (s *Sum32) Write(in []byte) (int, error) {
 	for _, v := range in {
-		s.state = uint32(s.state >> 1) + uint32(s.state << 31) + uint32(v)
+		s.state = uint32(s.state>>1) + uint32(s.state<<31) + uint32(v)
 	}
 
 	return len(in), nil
@@ -42,7 +42,7 @@ type Sum64 struct {
 }
 
 func New64() hash.Hash {
-	return &Sum64{state:0}
+	return &Sum64{state: 0}
 }
 
 func (s *Sum64) Reset() {
@@ -58,7 +58,7 @@ func (s *Sum64) BlockSize() int {
 }
 
 func (s *Sum64) Sum(in []byte) []byte {
-	temp := []byte{0,0,0,0,0,0,0,0}
+	temp := []byte{0, 0, 0, 0, 0, 0, 0, 0}
 	binary.BigEndian.PutUint64(temp, s.state)
 	return append(in, temp...)
 }
@@ -76,7 +76,7 @@ type Sum16 struct {
 }
 
 func New16() hash.Hash {
-	return &Sum16{state:0}
+	return &Sum16{state: 0}
 }
 
 func (s *Sum16) Reset() {
@@ -92,7 +92,7 @@ func (s *Sum16) BlockSize() int {
 }
 
 func (s *Sum16) Sum(in []byte) []byte {
-	temp := []byte{0,0,0,0}
+	temp := []byte{0, 0, 0, 0}
 	binary.BigEndian.PutUint16(temp, s.state)
 	return append(in, temp...)
 }
@@ -110,7 +110,7 @@ type Sum8 struct {
 }
 
 func New8() hash.Hash {
-	return &Sum8{state:0}
+	return &Sum8{state: 0}
 }
 
 func (s *Sum8) Reset() {

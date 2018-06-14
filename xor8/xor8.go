@@ -7,7 +7,7 @@ type Xor8 struct {
 }
 
 func New() hash.Hash {
-	return &Xor8{state:0}
+	return &Xor8{state: 0}
 }
 
 func (s *Xor8) Reset() {

@@ -23,11 +23,15 @@ import "github.com/FMNSSun/libhash/sysvsum"
 import "github.com/FMNSSun/libhash/fletcher"
 import "github.com/FMNSSun/libhash/xor8"
 
+// Returns true if libhash supports this hash (by name).
 func IsHashSupported(hash string) bool {
 	return getHash(hash) != nil
 }
 
+// Return the hash.Hash by name.
+// Returns nil if not supported.
 func getHash(hash string) hash.Hash {
+	// TODO: Are map[...]func faster than switch cases in go?
 	switch hash {
 	case "sha256":
 		return sha256.New()
@@ -178,14 +182,18 @@ func getHash(hash string) hash.Hash {
 	return nil
 }
 
+// Convert to hexadecimal representation (uses lowercase,
+// and will add leading zeroes).
 func AsHex(data []byte) string {
 	return hex.EncodeToString(data)
 }
 
+// Hash data and return hash as hexstring.
 func Hash(hash string, data []byte) string {
 	return AsHex(HashRaw(hash, data))
 }
 
+// Hash data but return hash as raw bytes.
 func HashRaw(hash string, data []byte) []byte {
 	h := getHash(hash)
 
@@ -197,16 +205,20 @@ func HashRaw(hash string, data []byte) []byte {
 	return h.Sum(nil)
 }
 
+// Hash a string and return hash as raw bytes.
 func HashRawStr(hash string, data string) []byte {
 	return HashRaw(hash, []byte(data))
 }
 
+// Hash a string and return hash as hexstring.
 func HashStr(hash string, data string) string {
 	return AsHex(HashRawStr(hash, data))
 }
 
 var ErrUnknownHash error = errors.New("Unknown hash!")
 
+// Hash data read through the provided io.Reader and return
+// hash as raw bytes.
 func HashReader(hash string, r io.Reader) ([]byte, error) {
 	h := getHash(hash)
 
@@ -223,6 +235,7 @@ func HashReader(hash string, r io.Reader) ([]byte, error) {
 	return h.Sum(nil), nil
 }
 
+// Hash a file (by path) and return the hash as hexstring.
 func HashFile(hash string, path string) (string, error) {
 	h, err := HashRawFile(hash, path)
 
@@ -233,6 +246,7 @@ func HashFile(hash string, path string) (string, error) {
 	return AsHex(h), nil
 }
 
+// Hash a file (by path) and return the hash as raw bytes.
 func HashRawFile(hash string, path string) ([]byte, error) {
 	f, err := os.Open(path)
 

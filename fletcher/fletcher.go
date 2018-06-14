@@ -9,7 +9,7 @@ type Fletcher16 struct {
 }
 
 func New16() hash.Hash {
-	return &Fletcher16{s0:0,s1:0}
+	return &Fletcher16{s0: 0, s1: 0}
 }
 
 func (s *Fletcher16) Reset() {
@@ -26,8 +26,8 @@ func (s *Fletcher16) BlockSize() int {
 }
 
 func (s *Fletcher16) Sum(in []byte) []byte {
-	temp := []byte{0,0}
-	binary.BigEndian.PutUint16(temp, (s.s1 << 8) | (s.s0))
+	temp := []byte{0, 0}
+	binary.BigEndian.PutUint16(temp, (s.s1<<8)|(s.s0))
 	return append(in, temp...)
 }
 
@@ -39,4 +39,3 @@ func (s *Fletcher16) Write(in []byte) (int, error) {
 
 	return len(in), nil
 }
-

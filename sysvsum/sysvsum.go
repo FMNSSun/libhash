@@ -8,7 +8,7 @@ type Sum struct {
 }
 
 func New() hash.Hash {
-	return &Sum{state:0}
+	return &Sum{state: 0}
 }
 
 func (s *Sum) Reset() {
@@ -24,8 +24,8 @@ func (s *Sum) BlockSize() int {
 }
 
 func (s *Sum) Sum(in []byte) []byte {
-	temp := []byte{0,0}
-	binary.BigEndian.PutUint16(temp, uint16(s.state % uint32(0xFFFF)))
+	temp := []byte{0, 0}
+	binary.BigEndian.PutUint16(temp, uint16(s.state%uint32(0xFFFF)))
 	return append(in, temp...)
 }
 
