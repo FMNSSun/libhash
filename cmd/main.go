@@ -1,6 +1,6 @@
 package main
 
-import "github.com/FMNSSun/hashutil/libhash"
+import "github.com/FMNSSun/libhash"
 import "flag"
 import "fmt"
 
